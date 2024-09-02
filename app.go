@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 )
 
 //go:embed templates/*
@@ -34,6 +35,22 @@ func main() {
 		w.Write([]byte("pong"))
 	})
 
+	http.HandleFunc("/priv", privHandler)
+
 	log.Println("listening on", port)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
+}
+
+func privHandler(w http.ResponseWriter, r *http.Request) {
+	resp, err := http.Get("http://go-example-proud-resonance-3596.flycast:8080/priv")
+	if err != nil {
+		log.Printf("Error making request: %v\n", err)
+		return
+	}
+	defer resp.Body.Close()
+
+	log.Println("flycast")
+	log.Println(time.Now().Format(time.RFC3339))
+
+	w.WriteHeader(http.StatusOK)
 }
