@@ -28,6 +28,12 @@ func main() {
 		t.ExecuteTemplate(w, "index.html.tmpl", data)
 	})
 
+	// Add handler to display "pong" in console
+	http.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
+		log.Println("pong")
+		w.Write([]byte("pong"))
+	})
+
 	log.Println("listening on", port)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
