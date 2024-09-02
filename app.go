@@ -42,7 +42,7 @@ func main() {
 }
 
 func privHandler(w http.ResponseWriter, r *http.Request) {
-	resp, err := http.Get("http://go-example-proud-resonance-3596.flycast:8080/priv")
+	resp, err := http.Get("http://go-example-proud-resonance-3596.flycast:8080/ping")
 	if err != nil {
 		log.Printf("Error making request: %v\n", err)
 		return
